@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import { Form, Field } from "react-final-form";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import axiosInstance from "../axiosInstance.js";
 
 const validate = (values) => {
   const errors = {};
@@ -25,8 +25,8 @@ const Main = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios
-      .get("http://localhost:5001/destination")
+    axiosInstance
+      .get("/destination")
       .then((response) => setDestinations(response.data))
       .catch((error) => console.error("Error fetching destinations:", error));
   }, []);
@@ -34,7 +34,7 @@ const Main = () => {
   const onSubmit = async (values) => {
     try {
       setErrorMessage(null);
-      const response = await axios.get("http://localhost:5001/hotels", {
+      const response = await axiosInstance.get("/hotels", {
         params: { city: values.destination },
       });
 

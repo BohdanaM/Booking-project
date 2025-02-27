@@ -8,7 +8,7 @@ import {
   CardMedia,
 } from "@mui/material";
 import { useLocation } from "react-router-dom";
-import axios from "axios";
+import axiosInstance from "../axiosInstance.js";
 
 const Hotels = () => {
   const location = useLocation();
@@ -24,7 +24,7 @@ const Hotels = () => {
 
   const fetchAllHotels = async () => {
     try {
-      const response = await axios.get("http://localhost:5001/hotels");
+      const response = await axiosInstance.get("/hotels");
       setHotels(response.data);
     } catch (error) {
       console.error("Error fetching hotels:", error);
